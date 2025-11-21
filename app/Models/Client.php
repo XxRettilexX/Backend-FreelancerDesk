@@ -3,29 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Client extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'email',
-        'password',
-        'avatar_url'
+        'phone',
+        'address',
+        'notes'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    public function clients()
+    public function user()
     {
-        return $this->hasMany(Client::class);
+        return $this->belongsTo(User::class);
     }
 
     public function projects()
